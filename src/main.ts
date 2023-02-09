@@ -1,5 +1,34 @@
 import './css/style.css';
 const initApp = () => {
+    // let listItems = ['2+3', '5', '5*2', '10'];
+
+    let historyBlock = document.querySelector('.history') as HTMLElement;
+
+    function generateHistory(
+        array: {
+            num1: number;
+            num2: number;
+            op: string;
+        }[]
+    ) {
+        let unorderedList = document.createElement('ul');
+
+        array.forEach((item) => {
+            const { num1, op, num2 } = item;
+            let equation = document.createElement('li');
+            let result = document.createElement('li');
+
+            const itemString = `${num1} ${op} ${num2}`;
+            result.innerHTML = eval(itemString);
+            equation.innerHTML = itemString + ' =';
+            unorderedList.append(equation);
+            unorderedList.append(result);
+        });
+        historyBlock.innerHTML = '';
+        historyBlock?.appendChild(unorderedList);
+        console.log('ADDED NEW ITEM');
+    }
+
     const currentValueElem = document.querySelector('.currentValue') as HTMLInputElement;
     const previousValueElem = document.querySelector('.previousValue');
     let itemArray: string[] = [];
@@ -69,6 +98,7 @@ const initApp = () => {
                 itemArray = [newValue, newOperator];
                 newNumberFlag = true;
                 console.log(equationArray);
+                generateHistory(equationArray);
             }
         });
     });
@@ -109,6 +139,7 @@ const initApp = () => {
         newNumberFlag = true;
         itemArray = [];
         console.log(equationArray);
+        generateHistory(equationArray);
     });
 
     //ClearButtons
@@ -119,6 +150,7 @@ const initApp = () => {
             if ((event.target as HTMLElement).classList.contains('clear')) {
                 previousValueElem!.textContent = '';
                 itemArray = [];
+                generateHistory([]);
             }
         });
     });

@@ -28,10 +28,69 @@ body {
 }
 
 .container {
-    padding: 4px;
-    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
     max-width: 500px;
+    height: 525px;
+    width: 90vw;
     background-color: #e0e0e0;
+    -webkit-box-shadow: 0px 2px 24px 0px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 2px 24px 0px rgba(66, 68, 90, 1);
+    box-shadow: 0px 2px 24px 0px rgba(66, 68, 90, 1);
+    border: 1px solid black;
+}
+
+.history {
+    display: none;
+    height: 95%;
+    max-width: 250px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 0px 30px 10px 0px;
+    font-size: 17px;
+
+    overflow: scroll;
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+    margin: 25px 0px 0px 0px;
+}
+.history::-webkit-scrollbar {
+    display: none;
+}
+
+.history ul {
+    list-style-type: none;
+    width: 100%;
+    text-align: right;
+    list-style-position: inside;
+    letter-spacing: -3px;
+}
+
+.history li:nth-child(2n + 1) {
+    font-weight: 700;
+    color: #707070;
+}
+
+.history li:nth-child(2n) {
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+.containerFunctionalities {
+    padding: 4px;
+
+    max-width: 500px;
+
     display: grid;
     gap: 4px;
     grid-template-areas:
@@ -39,10 +98,6 @@ body {
         'display display display display';
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-rows: 20px minmax(120px, auto) repeat(5, minmax(0, 70px));
-    -webkit-box-shadow: 0px 2px 24px 0px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 0px 2px 24px 0px rgba(66, 68, 90, 1);
-    box-shadow: 0px 2px 24px 0px rgba(66, 68, 90, 1);
-    border: 1px solid black;
 }
 
 .container:focus-within {
@@ -128,5 +183,15 @@ button:active {
     }
     .container {
         grid-template-rows: 35px minmax(95px, auto) repeat(5, minmax(0, 95px));
+    }
+}
+
+@media screen and (min-width: 950px) {
+    .container {
+        max-width: 750px;
+    }
+
+    .history {
+        display: flex;
     }
 }
