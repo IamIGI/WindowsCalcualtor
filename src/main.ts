@@ -68,7 +68,7 @@ const initApp = () => {
                 // start new equation
                 itemArray = [newValue, newOperator];
                 newNumberFlag = true;
-                console.log(equationArray);
+                generateHistory(equationArray);
             }
         });
     });
@@ -108,7 +108,8 @@ const initApp = () => {
 
         newNumberFlag = true;
         itemArray = [];
-        console.log(equationArray);
+
+        generateHistory(equationArray);
     });
 
     //ClearButtons
@@ -119,6 +120,7 @@ const initApp = () => {
             if ((event.target as HTMLElement).classList.contains('clear')) {
                 previousValueElem!.textContent = '';
                 itemArray = [];
+                generateHistory([]);
             }
         });
     });
@@ -143,4 +145,31 @@ const calculate = (equation: string, currentValueElem: HTMLInputElement) => {
     const divByZero = /(\/0)/.test(equation);
     if (divByZero) return (currentValueElem.value = '0');
     return (currentValueElem.value = eval(equation));
+};
+
+const generateHistory = (
+    array: {
+        num1: number;
+        num2: number;
+        op: string;
+    }[]
+) => {
+    let historyBlock = document.querySelector('.history') as HTMLElement;
+    let unorderedList = document.createElement('ul');
+
+    array.forEach((item) => {
+        const { num1, op, num2 } = item;
+        let equation = document.createElement('li');
+        let result = document.createElement('li');
+
+        const itemString = `${num1} ${op} ${num2}`;
+
+        equation.innerHTML = itemString + ' =';
+        unorderedList.append(equation);
+
+        result.innerHTML = eval(itemString);
+        unorderedList.append(result);
+    });
+    historyBlock.innerHTML = '';
+    historyBlock?.appendChild(unorderedList);
 };
