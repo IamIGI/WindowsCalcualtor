@@ -163,9 +163,11 @@ const generateHistory = (
         let result = document.createElement('li');
 
         const itemString = `${num1} ${op} ${num2}`;
-        result.innerHTML = eval(itemString);
+
         equation.innerHTML = itemString + ' =';
         unorderedList.append(equation);
+
+        result.innerHTML = eval(itemString);
         unorderedList.append(result);
     });
     historyBlock.innerHTML = '';
